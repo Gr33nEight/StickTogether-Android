@@ -1,4 +1,4 @@
-package com.example.sticktogether.App
+package com.example.sticktogether.Domain
 
 sealed class AppError {
     data class Unknown(val exception: Throwable? = null) : AppError()

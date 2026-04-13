@@ -1,4 +1,4 @@
-package com.example.sticktogether.App
+package com.example.sticktogether.Presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
