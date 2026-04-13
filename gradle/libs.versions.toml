@@ -11,7 +11,7 @@ composeBom = "2024.09.00"
 coroutines = "1.7.3"
 lifecycle = "2.10.0"
 firebaseBom = "33.1.0"
-hilt = "2.51.1"
+hilt = "2.59.2"
 ksp = "2.0.21-1.0.26"
 hiltNavigationCompose = "1.2.0"
 
@@ -44,6 +44,6 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-google-services = { id = "com.google.gms.google-services", version = "4.4.1" }
+google-services = { id = "com.google.gms.google-services", version = "4.4.4" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
