@@ -1,4 +1,4 @@
-package com.example.sticktogether
+package com.example.sticktogether.App
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
