@@ -1,4 +1,4 @@
-package com.example.sticktogether.Presentation
+package com.example.sticktogether.Features
 
 sealed interface UiEvent {
     data class ShowToast(val message: String) : UiEvent
