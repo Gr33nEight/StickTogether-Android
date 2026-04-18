@@ -29,7 +29,8 @@ fun CustomPasswordField(
     onValueChange: (String) -> Unit,
     placeholder: String,
     leadingIcon: Int? = null,
-    isPassword: Boolean = false
+    isPassword: Boolean = false,
+    isError: Boolean = false,
 ) {
 
     var passwordVisible by remember { mutableStateOf(false) }
@@ -37,6 +38,7 @@ fun CustomPasswordField(
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
+        isError = isError,
         placeholder = {
             Text(
                 text = placeholder,
@@ -62,7 +64,6 @@ fun CustomPasswordField(
                 val icon = if (passwordVisible) R.drawable.ic_visible else R.drawable.ic_visible_off
 
                 IconButton(onClick = {passwordVisible = !passwordVisible}) {
-
                     Icon(
                         painter = painterResource(id = icon),
                         contentDescription = null,
@@ -78,12 +79,14 @@ fun CustomPasswordField(
             .fillMaxWidth(),
         shape = RoundedCornerShape(10.dp),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = Color.White, //
-            unfocusedContainerColor = Color.White, //
-            focusedBorderColor = Color.White, //
-            unfocusedBorderColor = Color.White, //
+            focusedContainerColor = Colors.BackgroundColor,
+            unfocusedContainerColor = Colors.BackgroundColor,
+            focusedBorderColor = Colors.Primary,
+            unfocusedBorderColor = Colors.Primary,
             focusedTextColor = Color.White,
             unfocusedTextColor = Color.White,
+            errorBorderColor = Colors.Error,
+            errorTextColor = Color.White
         )
     )
 }

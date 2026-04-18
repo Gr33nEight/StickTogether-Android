@@ -1,7 +1,9 @@
 package com.example.sticktogether.Resources.Components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -50,10 +52,10 @@ fun CustomTextField(
         singleLine = true,
         shape = RoundedCornerShape(10.dp),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = Color.White, //
-            unfocusedContainerColor = Color.White, //
-            focusedBorderColor = Color.White, //
-            unfocusedBorderColor = Color.White, //
+            focusedContainerColor = Colors.BackgroundColor,
+            unfocusedContainerColor = Colors.BackgroundColor,
+            focusedBorderColor = Colors.Primary,
+            unfocusedBorderColor = Colors.Primary,
             focusedTextColor = Color.White,
             unfocusedTextColor = Color.White,
         )
