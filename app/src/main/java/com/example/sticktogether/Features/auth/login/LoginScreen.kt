@@ -20,6 +20,7 @@ import com.example.sticktogether.Features.auth.login.view.LoginHeader
 import com.example.sticktogether.Features.auth.login.view.LoginSocials
 import com.example.sticktogether.Navigation.Screen
 import com.example.sticktogether.Resources.Components.Colors
+import com.example.sticktogether.Resources.Enums.PasswordError
 
 @Composable
 
@@ -50,6 +51,8 @@ fun LoginView(
             LoginForm(
                 email = state.emailorusername,
                 password = state.password,
+                passwordError = state.passwordError,
+                showError = state.showErrors,
                 onEmailChange = { viewModel.onEmailChange(it) },
                 onPasswordChange = { viewModel.onPasswordChange(it) },
                 onLoginClick = { viewModel.LoginSignIn() }

@@ -29,7 +29,8 @@ fun CustomPasswordField(
     onValueChange: (String) -> Unit,
     placeholder: String,
     leadingIcon: Int? = null,
-    isPassword: Boolean = false
+    isPassword: Boolean = false,
+    isError: Boolean = false,
 ) {
 
     var passwordVisible by remember { mutableStateOf(false) }
@@ -37,6 +38,7 @@ fun CustomPasswordField(
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
+        isError = isError,
         placeholder = {
             Text(
                 text = placeholder,
@@ -83,6 +85,8 @@ fun CustomPasswordField(
             unfocusedBorderColor = Colors.Primary,
             focusedTextColor = Color.White,
             unfocusedTextColor = Color.White,
+            errorBorderColor = Colors.Error,
+            errorTextColor = Color.White
         )
     )
 }

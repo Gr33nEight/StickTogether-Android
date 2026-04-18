@@ -11,6 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -20,11 +22,15 @@ import com.example.sticktogether.Resources.Components.CustomButtonField
 import com.example.sticktogether.Resources.Components.CustomPasswordField
 
 import com.example.sticktogether.Resources.Components.CustomTextField
+import com.example.sticktogether.Resources.Enums.PasswordError
+import com.example.sticktogether.Resources.Enums.asString
 
 @Composable
 fun LoginForm(
     email: String,
     password: String,
+    passwordError: PasswordError,
+    showError: Boolean,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onLoginClick: () -> Unit
@@ -46,8 +52,20 @@ fun LoginForm(
             onValueChange = onPasswordChange,
             placeholder = "Password",
             leadingIcon = R.drawable.ic_lock,
-            isPassword = true
+            isPassword = true,
+            isError = showError && passwordError != PasswordError.NONE
         )
+
+        if (showError && passwordError != PasswordError.NONE) {
+            Text(
+                text = passwordError.asString(),
+                color = Colors.Error,
+                fontSize = 12.sp,
+                modifier = Modifier
+                    .padding(start = 8.dp, top = 4.dp),
+                fontWeight = FontWeight.W400
+            )
+        }
 
         Text(
             text = "forgot password?",
