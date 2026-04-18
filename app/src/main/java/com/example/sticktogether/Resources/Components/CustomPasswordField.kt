@@ -78,10 +78,10 @@ fun CustomPasswordField(
             .fillMaxWidth(),
         shape = RoundedCornerShape(10.dp),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = Color.White, //
-            unfocusedContainerColor = Color.White, //
-            focusedBorderColor = Color.White, //
-            unfocusedBorderColor = Color.White, //
+            focusedContainerColor = Colors.BackgroundColor,
+            unfocusedContainerColor = Colors.BackgroundColor,
+            focusedBorderColor = Colors.Primary,
+            unfocusedBorderColor = Colors.Primary,
             focusedTextColor = Color.White,
             unfocusedTextColor = Color.White,
         )

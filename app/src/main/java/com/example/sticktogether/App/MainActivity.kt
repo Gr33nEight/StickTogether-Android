@@ -8,9 +8,12 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.example.sticktogether.Features.auth.splash.SplashView
 import com.example.sticktogether.Features.auth.splash.SplashViewModel
 import com.example.sticktogether.Navigation.MainScreen
+import com.example.sticktogether.ui.theme.StickTogetherTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -39,3 +42,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
