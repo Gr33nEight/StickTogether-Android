@@ -62,7 +62,6 @@ fun CustomPasswordField(
                 val icon = if (passwordVisible) R.drawable.ic_visible else R.drawable.ic_visible_off
 
                 IconButton(onClick = {passwordVisible = !passwordVisible}) {
-
                     Icon(
                         painter = painterResource(id = icon),
                         contentDescription = null,
