@@ -6,9 +6,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.sticktogether.Features.auth.login.LoginView
+import com.example.sticktogether.Features.auth.login.LoginScreen
 import com.example.sticktogether.Features.auth.login.LoginViewModel
-import com.example.sticktogether.Features.auth.register.RegisterView
+import com.example.sticktogether.Features.auth.register.RegisterScreen
 import com.example.sticktogether.Features.auth.register.RegisterViewModel
 
 @Composable
@@ -26,7 +26,7 @@ fun NavRoute(
 
             val viewModel: LoginViewModel = viewModel()
 
-            LoginView(
+            LoginScreen(
                 viewModel = viewModel,
                 onNavigate = { nextScreen -> navController.navigate(nextScreen) })
         }
@@ -35,7 +35,7 @@ fun NavRoute(
 
             val viewModel: RegisterViewModel = viewModel()
 
-            RegisterView(
+            RegisterScreen(
                 viewModel = viewModel,
                 onNavigate = { nextScreen -> navController.navigate(nextScreen) })
         }

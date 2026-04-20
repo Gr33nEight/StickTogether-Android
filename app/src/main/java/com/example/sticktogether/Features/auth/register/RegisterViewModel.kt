@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 data class RegisterUIState(
     val emailorusername: String = "",
     val password: String = "",
+    val nickname: String = "",
     val confirmPassword: String = "",
     val isLoading: Boolean = false,
     val error: String? = null,
@@ -29,6 +30,10 @@ class RegisterViewModel: ViewModel() {
 
     fun onEmailChange(newValue: String) {
         _uiState.value = _uiState.value.copy(emailorusername = newValue, error = null)
+    }
+
+    fun onNicknameChange(newValue: String) {
+        _uiState.value = _uiState.value.copy(nickname = newValue, error = null)
     }
 
     fun onPasswordChange(newValue: String) {

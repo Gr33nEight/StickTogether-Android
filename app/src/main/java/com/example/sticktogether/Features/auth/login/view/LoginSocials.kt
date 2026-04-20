@@ -50,7 +50,7 @@ fun LoginSocials() {
 
         Image(
             painter = painterResource(R.drawable.ic_social_medias),
-            contentDescription = "Social Login Options",
+            contentDescription = null,
             modifier = Modifier.fillMaxWidth(),
             contentScale = ContentScale.Fit
         )
