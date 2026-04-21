@@ -20,11 +20,10 @@ import com.example.sticktogether.Features.auth.login.view.LoginHeader
 import com.example.sticktogether.Features.auth.login.view.LoginSocials
 import com.example.sticktogether.Navigation.Screen
 import com.example.sticktogether.Resources.Components.Colors
-import com.example.sticktogether.Resources.Enums.PasswordError
 
 @Composable
 
-fun LoginView(
+fun LoginScreen(
     onNavigate: (Screen) -> Unit,
     viewModel: LoginViewModel
 ) {

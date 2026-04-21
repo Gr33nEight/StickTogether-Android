@@ -1,4 +1,4 @@
-package com.example.sticktogether.Features.auth.login.view
+package com.example.sticktogether.Features.auth.register.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -20,13 +20,13 @@ import com.example.sticktogether.Resources.Components.Colors
 
 @Composable
 
-fun LoginSocials() {
+fun RegisterSocials() {
     Column(
         verticalArrangement = Arrangement.spacedBy(40.dp)
     ) {
         Row(
-            modifier = Modifier.
-                fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             HorizontalDivider(

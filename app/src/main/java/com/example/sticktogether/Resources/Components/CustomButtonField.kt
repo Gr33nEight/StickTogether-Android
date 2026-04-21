@@ -22,7 +22,7 @@ fun CustomButtonField(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Colors.Primary,
             contentColor = Color.White,
