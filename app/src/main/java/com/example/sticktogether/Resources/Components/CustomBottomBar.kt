@@ -14,7 +14,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,7 +31,7 @@ fun CustomBottomBar(
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 24.dp)
             .clip(RoundedCornerShape(100.dp))
-            .background(Colors.CardBackground.copy(alpha = 0.8f))
+            .background(Colors.CardBackground)
             .padding(8.dp)
     ) {
         Box(
@@ -47,16 +46,17 @@ fun CustomBottomBar(
             Text(
                 text = "+ New habit",
                 color = if (selectedTab == 0) Colors.BackgroundColor else Colors.HeaderColor,
-                fontSize = 15.sp,
+                fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                maxLines = 1
             )
         }
 
         IconButton(
             onClick = { onStatsClick() },
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier
+                .align(Alignment.Center)
+                .offset(x = (10).dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_stats),
