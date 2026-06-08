@@ -1,5 +1,7 @@
 package com.example.sticktogether.Features.home.view
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,6 +22,7 @@ import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DateSelector(
     selectedDateIndex: Int = 0,
@@ -69,6 +72,7 @@ fun DateSelector(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true, backgroundColor = 0xFF121212)
 @Composable
 fun DateSelectorPreview() {
