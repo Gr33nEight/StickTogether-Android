@@ -1,22 +1,18 @@
 package com.example.sticktogether.Resources.Components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.sticktogether.R
 
 @Composable
@@ -34,21 +30,17 @@ fun CustomBottomBar(
             .background(Colors.CardBackground)
             .padding(8.dp)
     ) {
-        Box(
+        IconButton(
+            onClick = { onHomeClick() },
             modifier = Modifier
                 .align(Alignment.CenterStart)
-                .clip(RoundedCornerShape(100.dp))
-                .background(if (selectedTab == 0) Colors.Primary else Color.Transparent)
-                .clickable { onHomeClick() }
-                .padding(horizontal = 20.dp, vertical = 12.dp),
-            contentAlignment = Alignment.Center
+                .padding(start = 8.dp)
         ) {
-            Text(
-                text = "+ New habit",
-                color = if (selectedTab == 0) Colors.BackgroundColor else Colors.HeaderColor,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
-                maxLines = 1
+            Icon(
+                painter = painterResource(id = R.drawable.ic_home),
+                contentDescription = "Home",
+                tint = if (selectedTab == 0) Colors.Primary else Colors.HeaderColor,
+                modifier = Modifier.size(25.dp)
             )
         }
 
@@ -56,11 +48,10 @@ fun CustomBottomBar(
             onClick = { onStatsClick() },
             modifier = Modifier
                 .align(Alignment.Center)
-                .offset(x = (10).dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_stats),
-                contentDescription = null,
+                contentDescription = "Stats",
                 tint = if (selectedTab == 1) Colors.Primary else Colors.HeaderColor
             )
         }
@@ -73,7 +64,7 @@ fun CustomBottomBar(
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_settings),
-                contentDescription = null,
+                contentDescription = "Settings",
                 tint = if (selectedTab == 2) Colors.Primary else Colors.HeaderColor
             )
         }
