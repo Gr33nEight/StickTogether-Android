@@ -27,7 +27,7 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CreateHabitContent(
-    onHabitCreated: (String, String, String) -> Unit,
+    onHabitCreated: (String, String, String, LocalDate) -> Unit,
     onCancel: () -> Unit
 ) {
     val context = LocalContext.current
@@ -37,6 +37,7 @@ fun CreateHabitContent(
     var selectedTime by remember { mutableStateOf(LocalTime.of(12, 30)) }
     var reminderEnabled by remember { mutableStateOf(true) }
     var frequency by remember { mutableStateOf("Daily") }
+    var showError by remember { mutableStateOf(false) }
 
     val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
     val timeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
@@ -102,7 +103,10 @@ fun CreateHabitContent(
                         Text("Habit Title", color = Colors.Primary, fontSize = 12.sp)
                         BasicTextField(
                             value = habitName,
-                            onValueChange = { habitName = it },
+                            onValueChange = {
+                                habitName = it
+                                showError = false
+                            },
                             textStyle = androidx.compose.ui.text.TextStyle(
                                 color = Colors.HeaderColor,
                                 fontSize = 18.sp,
@@ -116,6 +120,14 @@ fun CreateHabitContent(
                                 innerTextField()
                             }
                         )
+                        if (showError) {
+                            Text(
+                                text = "Please enter a title",
+                                color = Color.Red,
+                                fontSize = 12.sp,
+                                modifier = Modifier.padding(top = 4.dp)
+                            )
+                        }
                     }
                 }
             }
@@ -246,8 +258,11 @@ fun CreateHabitContent(
 
             Button(
                 onClick = {
-                    if (habitName.isNotEmpty()) {
-                        onHabitCreated(habitName, selectedTime.format(timeFormatter), frequency)
+                    if (habitName.isNotBlank()) {
+                        showError = false
+                        onHabitCreated(habitName, selectedTime.format(timeFormatter), frequency, selectedDate)
+                    } else {
+                        showError = true
                     }
                 },
                 modifier = Modifier.weight(1f).height(54.dp),
