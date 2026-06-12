@@ -2,12 +2,15 @@ package com.example.sticktogether.Features.auth.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sticktogether.Domain.AuthRepository
 import com.example.sticktogether.Resources.Enums.PasswordError
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 data class RegisterUIState(
@@ -22,7 +25,9 @@ data class RegisterUIState(
     val confirmPasswordError: PasswordError = PasswordError.NONE,
     val showErrors: Boolean = false
 )
-class RegisterViewModel: ViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
+    private val authRepository: AuthRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RegisterUIState())
 
@@ -92,12 +97,21 @@ class RegisterViewModel: ViewModel() {
         val currentState = _uiState.value
 
         viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isLoading = true, error = null)
 
-            _uiState.value = currentState.copy(isLoading = true, error = null)
+            val result = authRepository.registerWithEmail(
+                email = _uiState.value.emailorusername,
+                password = _uiState.value.password
+            )
 
-            delay(1500)
-
-            _uiState.value = _uiState.value.copy(isLoading = false, isRegisterSuccessful = true)
+            result.onSuccess {
+                _uiState.value = _uiState.value.copy(isLoading = false, isRegisterSuccessful = true)
+            }.onFailure { exception ->
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    error = exception.localizedMessage ?: "Błąd rejestracji"
+                )
+            }
         }
     }
 }

@@ -19,7 +19,9 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.example.sticktogether.Features.auth.home.scheduleHabitAlarm
 import com.example.sticktogether.Features.auth.home.view.HomeTopBar
+import com.example.sticktogether.Features.auth.login.LoginViewModel
 import com.example.sticktogether.Features.home.view.*
+import com.example.sticktogether.Navigation.Screen
 import com.example.sticktogether.Resources.Components.Colors
 import com.example.sticktogether.Resources.Components.CustomBottomBar
 import java.time.LocalDate
@@ -37,7 +39,7 @@ data class Habit(
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(){
     val context = LocalContext.current
     var selectedTab by remember { mutableStateOf(0) }
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
