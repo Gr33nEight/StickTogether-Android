@@ -7,4 +7,6 @@ import kotlinx.serialization.Serializable
     @Serializable object Register: Screen()
     @Serializable object Home: Screen()
 
+    @Serializable object Settings: Screen()
+
 }

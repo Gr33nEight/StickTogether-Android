@@ -39,7 +39,7 @@ data class Habit(
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(){
+fun HomeScreen(onNavigate: (Any) -> Unit){
     val context = LocalContext.current
     var selectedTab by remember { mutableStateOf(0) }
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
@@ -88,14 +88,6 @@ fun HomeScreen(){
     val daysOffset = ChronoUnit.DAYS.between(LocalDate.now(), selectedDate).toInt()
 
     Scaffold(
-        bottomBar = {
-            CustomBottomBar(
-                selectedTab = selectedTab,
-                onHomeClick = { selectedTab = 0 },
-                onStatsClick = { selectedTab = 1 },
-                onSettingsClick = { selectedTab = 2 }
-            )
-        },
         containerColor = Colors.BackgroundColor
     ) { paddingValues ->
         Box(modifier = Modifier.fillMaxSize()) {
