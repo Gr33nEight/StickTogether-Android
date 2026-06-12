@@ -10,4 +10,8 @@ object Colors {
     var Secondary = Color(0xFF96D399)
 
     var Error = Color(0xFFFF2727)
+
+    var CardBackground = Color(0xFF2C2C2C)
+
+    var TextGray = Color(0xFFA0A0A0)
 }
