@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,6 +13,7 @@ import com.example.sticktogether.Features.auth.login.LoginViewModel
 import com.example.sticktogether.Features.auth.register.RegisterScreen
 import com.example.sticktogether.Features.auth.register.RegisterViewModel
 import com.example.sticktogether.Features.home.HomeScreen
+import com.example.sticktogether.Features.home.HomeViewModel
 import com.example.sticktogether.Features.settings.SettingsViewModel
 import com.example.sticktogether.Features.settings.SettingsScreen
 
@@ -48,8 +48,12 @@ fun NavRoute(
         }
 
         composable<Screen.Home> {
+            val viewModel: HomeViewModel = hiltViewModel()
+
             HomeScreen(
-                onNavigate = { nextScreen -> navController.navigate(route = nextScreen)} )
+                viewModel = viewModel,
+                onNavigate = { nextScreen -> navController.navigate(route = nextScreen) }
+            )
         }
 
 
