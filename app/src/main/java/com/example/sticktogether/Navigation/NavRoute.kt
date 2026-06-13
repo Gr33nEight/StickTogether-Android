@@ -1,8 +1,10 @@
 package com.example.sticktogether.Navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -10,7 +12,12 @@ import com.example.sticktogether.Features.auth.login.LoginScreen
 import com.example.sticktogether.Features.auth.login.LoginViewModel
 import com.example.sticktogether.Features.auth.register.RegisterScreen
 import com.example.sticktogether.Features.auth.register.RegisterViewModel
+import com.example.sticktogether.Features.home.HomeScreen
+import com.example.sticktogether.Features.home.HomeViewModel
+import com.example.sticktogether.Features.settings.SettingsViewModel
+import com.example.sticktogether.Features.settings.SettingsScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 
 fun NavRoute(
@@ -24,7 +31,7 @@ fun NavRoute(
     ) {
         composable<Screen.Login> {
 
-            val viewModel: LoginViewModel = viewModel()
+            val viewModel: LoginViewModel = hiltViewModel()
 
             LoginScreen(
                 viewModel = viewModel,
@@ -33,12 +40,37 @@ fun NavRoute(
 
         composable<Screen.Register> {
 
-            val viewModel: RegisterViewModel = viewModel()
+            val viewModel: RegisterViewModel = hiltViewModel()
 
             RegisterScreen(
                 viewModel = viewModel,
                 onNavigate = { nextScreen -> navController.navigate(nextScreen) })
         }
+
+        composable<Screen.Home> {
+            val viewModel: HomeViewModel = hiltViewModel()
+
+            HomeScreen(
+                viewModel = viewModel,
+                onNavigate = { nextScreen -> navController.navigate(route = nextScreen) }
+            )
+        }
+
+
+        composable<Screen.Settings> {
+
+            val viewModel: SettingsViewModel = hiltViewModel()
+
+            SettingsScreen(
+                onLogoutClick = {
+                    viewModel.logout()
+                    navController.navigate(Screen.Login) {
+                        popUpTo(0)
+                    }
+                },
+                onThemeClick = {})
+        }
+
     }
 }
 

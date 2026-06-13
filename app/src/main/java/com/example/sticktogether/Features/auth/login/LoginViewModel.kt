@@ -8,6 +8,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import com.example.sticktogether.Domain.AuthRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 
 data class LoginUIState(
@@ -20,8 +23,9 @@ data class LoginUIState(
     val showErrors: Boolean = false
 )
 
-class LoginViewModel : ViewModel() {
-
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val authRepository: AuthRepository) : ViewModel() {
     private val _uiState = MutableStateFlow(LoginUIState())
 
     val uiState: StateFlow<LoginUIState> = _uiState.asStateFlow()
@@ -66,12 +70,21 @@ class LoginViewModel : ViewModel() {
         val currentState = _uiState.value
 
         viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isLoading = true, error = null)
 
-            _uiState.value = currentState.copy(isLoading = true, error = null)
+            val result = authRepository.loginWithEmail(
+                email = _uiState.value.emailorusername,
+                password = _uiState.value.password
+            )
 
-            delay(1500)
-
-            _uiState.value = _uiState.value.copy(isLoading = false, isLoginSuccessful = true)
+            result.onSuccess {
+                _uiState.value = _uiState.value.copy(isLoading = false, isLoginSuccessful = true)
+            }.onFailure { exception ->
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    error = exception.localizedMessage ?: "Błąd logowania"
+                )
+            }
         }
     }
 }

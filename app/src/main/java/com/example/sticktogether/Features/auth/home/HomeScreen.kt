@@ -14,37 +14,33 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.sticktogether.Domain.Habit
 import com.example.sticktogether.Features.auth.home.scheduleHabitAlarm
 import com.example.sticktogether.Features.auth.home.view.HomeTopBar
 import com.example.sticktogether.Features.home.view.*
 import com.example.sticktogether.Resources.Components.Colors
-import com.example.sticktogether.Resources.Components.CustomBottomBar
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
-data class Habit(
-    val id: String = java.util.UUID.randomUUID().toString(),
-    val name: String,
-    val time: String,
-    val startDate: LocalDate,
-    val frequency: String,
-    var isCompleted: Boolean = false
-)
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onNavigate: (Any) -> Unit,
+    viewModel: HomeViewModel = hiltViewModel(),
+)
+{
     val context = LocalContext.current
-    var selectedTab by remember { mutableStateOf(0) }
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-    val allHabits = remember { mutableStateListOf<Habit>() }
+    val allHabits by viewModel.habits.collectAsState()
 
     var hasNotificationPermission by remember {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -71,14 +67,16 @@ fun HomeScreen() {
     }
 
     val filteredHabits = allHabits.filter { habit ->
-        if (selectedDate.isBefore(habit.startDate)) {
+        val habitStartDate = java.time.LocalDate.parse(habit.startDate)
+
+        if (selectedDate.isBefore(habitStartDate)) {
             false
         } else {
             when (habit.frequency) {
                 "Daily" -> true
-                "Weekly" -> selectedDate.dayOfWeek == habit.startDate.dayOfWeek
-                "Monthly" -> selectedDate.dayOfMonth == habit.startDate.dayOfMonth
-                else -> habit.startDate == selectedDate
+                "Weekly" -> selectedDate.dayOfWeek == habitStartDate.dayOfWeek
+                "Monthly" -> selectedDate.dayOfMonth == habitStartDate.dayOfMonth
+                else -> habitStartDate == selectedDate
             }
         }
     }
@@ -86,14 +84,6 @@ fun HomeScreen() {
     val daysOffset = ChronoUnit.DAYS.between(LocalDate.now(), selectedDate).toInt()
 
     Scaffold(
-        bottomBar = {
-            CustomBottomBar(
-                selectedTab = selectedTab,
-                onHomeClick = { selectedTab = 0 },
-                onStatsClick = { selectedTab = 1 },
-                onSettingsClick = { selectedTab = 2 }
-            )
-        },
         containerColor = Colors.BackgroundColor
     ) { paddingValues ->
         Box(modifier = Modifier.fillMaxSize()) {
@@ -128,10 +118,7 @@ fun HomeScreen() {
                             time = habit.time,
                             isCompleted = habit.isCompleted,
                             onToggleCompleted = {
-                                val index = allHabits.indexOf(habit)
-                                if (index != -1) {
-                                    allHabits[index] = habit.copy(isCompleted = !habit.isCompleted)
-                                }
+                                viewModel.toggleHabitCompletion(habit)
                             }
                         )
                     }
@@ -147,14 +134,8 @@ fun HomeScreen() {
                 ) {
                     CreateHabitContent(
                         onHabitCreated = { name, time, frequency, startDate ->
-                            allHabits.add(
-                                Habit(
-                                    name = name,
-                                    time = time,
-                                    startDate = startDate,
-                                    frequency = frequency
-                                )
-                            )
+                            viewModel.addHabit(name, time, startDate.toString(), frequency)
+
                             if (hasNotificationPermission) {
                                 scheduleHabitAlarm(context, name, startDate, time)
                             }
