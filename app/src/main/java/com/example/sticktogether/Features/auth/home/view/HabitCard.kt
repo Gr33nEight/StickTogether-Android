@@ -5,12 +5,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,7 +27,8 @@ fun HabitCard(
     title: String,
     time: String,
     isCompleted: Boolean = false,
-    onToggleCompleted: () -> Unit
+    onToggleCompleted: () -> Unit,
+    onDeleteClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -79,6 +83,17 @@ fun HabitCard(
                 .size(28.dp)
                 .clickable { onToggleCompleted() }
         )
+        Spacer(modifier = Modifier.width(12.dp))
+
+        Icon(
+            imageVector = Icons.Default.Close,
+            contentDescription = "Usuń nawyk",
+            tint = Color.Red,
+            modifier = Modifier
+                .size(28.dp)
+                .clickable { onDeleteClick() }
+        )
+
     }
 }
 
@@ -93,13 +108,15 @@ fun HabitCardPreview() {
             title = "Morning Run",
             time = "07:00 AM",
             isCompleted = false,
-            onToggleCompleted = {}
+            onToggleCompleted = {},
+            onDeleteClick = {}
         )
         HabitCard(
             title = "Read a Book",
             time = "08:00 PM",
             isCompleted = true,
-            onToggleCompleted = {}
+            onToggleCompleted = {},
+            onDeleteClick = {}
         )
     }
 }
