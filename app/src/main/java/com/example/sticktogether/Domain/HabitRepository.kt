@@ -42,7 +42,12 @@ class HabitRepository @Inject constructor(
         habitsCollection.document(newHabit.id).set(newHabit)
     }
 
-    fun updateHabitCompletion(habitId: String, isCompleted: Boolean) {
-        habitsCollection.document(habitId).update("completed", isCompleted)
+    fun updateHabitCompletion(habitId: String, date: String, isCompleted: Boolean) {
+        firestore.collection("habits").document(habitId)
+            .update("completedDates.$date", isCompleted)
+    }
+
+    fun deleteHabit(habitId: String) {
+        firestore.collection("habits").document(habitId).delete()
     }
 }

@@ -116,9 +116,12 @@ fun HomeScreen(
                         HabitCard(
                             title = habit.name,
                             time = habit.time,
-                            isCompleted = habit.isCompleted,
+                            isCompleted = habit.completedDates.getOrDefault(selectedDate.toString(), false),
                             onToggleCompleted = {
-                                viewModel.toggleHabitCompletion(habit)
+                                viewModel.toggleHabitCompletion(habit, selectedDate.toString())
+                            },
+                            onDeleteClick = {
+                                viewModel.deleteHabit(habit.id)
                             }
                         )
                     }

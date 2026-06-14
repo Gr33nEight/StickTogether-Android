@@ -8,5 +8,6 @@ data class Habit(
     val time: String = "",
     val startDate: String = "",
     val frequency: String = "",
-    var isCompleted: Boolean = false
+    var isCompleted: Boolean = false,
+    val completedDates: Map<String, Boolean> = emptyMap()
 )

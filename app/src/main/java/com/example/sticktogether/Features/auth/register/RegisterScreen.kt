@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -28,6 +29,12 @@ fun RegisterScreen(
     viewModel: RegisterViewModel
 ) {
     val state by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(key1 = state.isRegisterSuccessful) {
+        if (state.isRegisterSuccessful) {
+            onNavigate(Screen.Home)
+        }
+    }
 
     Box(
         modifier = Modifier
